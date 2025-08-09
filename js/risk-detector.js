@@ -45,9 +45,9 @@ class RiskDetector {
                 row['Paid Amount'] = 0;
             }
             
-            // Fill missing values
-            row['Selling Dealer'] = row['Selling Dealer'] || 'Unknown';
-            row['Default Servicer'] = row['Default Servicer'] || 'Unknown';
+            // Fill missing values - changed from 'Unknown' to more descriptive values
+            row['Selling Dealer'] = row['Selling Dealer'] || 'Not Specified';
+            row['Default Servicer'] = row['Default Servicer'] || 'Not Specified';
             
             return row;
         });
@@ -96,7 +96,7 @@ class RiskDetector {
         const vinStats = multipleClaimsVins.map(vin => {
             const claims = vinGroups[vin];
             const totalPaid = claims.reduce((sum, claim) => sum + claim['Paid Amount'], 0);
-            const vehicle = claims[0].Vehicle || 'Unknown';
+            const vehicle = claims[0].Vehicle || 'Not Available';
             
             return {
                 VIN: vin,
@@ -168,7 +168,7 @@ class RiskDetector {
             const claims = vinGroups[vin];
             const dealers = [...new Set(claims.map(claim => claim['Selling Dealer']))];
             const totalPaid = claims.reduce((sum, claim) => sum + claim['Paid Amount'], 0);
-            const vehicle = claims[0].Vehicle || 'Unknown';
+            const vehicle = claims[0].Vehicle || 'Not Available';
             
             return {
                 VIN: vin,
@@ -235,7 +235,7 @@ class RiskDetector {
                 rapidClaimVins.push(vin);
                 
                 const totalPaid = claims.reduce((sum, claim) => sum + claim['Paid Amount'], 0);
-                const vehicle = claims[0].Vehicle || 'Unknown';
+                const vehicle = claims[0].Vehicle || 'Not Available';
                 
                 vinStats.push({
                     VIN: vin,
@@ -329,7 +329,7 @@ class RiskDetector {
         // Extract brand from Vehicle column
         const dataWithBrands = this.data.map(row => {
             const vehicleParts = (row.Vehicle || '').split(' ');
-            const brand = vehicleParts.length > 1 ? vehicleParts[1] : 'Unknown';
+            const brand = vehicleParts.length > 1 ? vehicleParts[1] : 'Not Identified';
             return { ...row, Brand: brand };
         });
         
@@ -454,7 +454,7 @@ class RiskDetector {
      */
     groupBy(array, key) {
         return array.reduce((result, item) => {
-            const groupKey = item[key] || 'Unknown';
+            const groupKey = item[key] || 'Not Specified';
             if (!result[groupKey]) {
                 result[groupKey] = [];
             }
