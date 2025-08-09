@@ -1,0 +1,32 @@
+{
+  "name": "high-risk-detector",
+  "version": "1.0.0",
+  "description": "High Risk Pattern Detection System for Claims Data",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve web",
+    "build": "echo 'No build step required - static files are ready to deploy'",
+    "test": "echo 'No tests configured'",
+    "deploy": "gh-pages -d web"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeff99jackson99/high-risk-detector.git"
+  },
+  "keywords": [
+    "risk-detection",
+    "claims-analysis",
+    "fraud-detection",
+    "data-analysis"
+  ],
+  "author": "Jeff Jackson",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/jeff99jackson99/high-risk-detector/issues"
+  },
+  "homepage": "https://github.com/jeff99jackson99/high-risk-detector#readme",
+  "devDependencies": {
+    "gh-pages": "^5.0.0",
+    "serve": "^14.2.0"
+  }
+}

@@ -1,0 +1,36 @@
+HIGH RISK PATTERN DETECTION SUMMARY
+===================================
+
+Total Claims Analyzed: 79
+Total Amount Paid: $211892.12
+Average Claim Amount: $2682.18
+Maximum Claim Amount: $105946.06
+Unique VINs: 61
+Unique Dealers: 25
+
+RISK PATTERNS DETECTED
+=====================
+
+Multiple Claims Per Vin:
+  - Vins Flagged: 12
+  - Claims Flagged: 29
+
+High Dollar Claims:
+  - Claims Flagged: 1
+  - Total Amount: 105946.06
+
+Repeated Claims Timeframe:
+  - Vins Flagged: 9
+  - Claims Flagged: 23
+
+High Claims Per Dealer:
+  - Dealers Flagged: 9
+  - Claims Flagged: 61
+
+Luxury Vehicle Patterns:
+  - Brands Flagged: 11
+  - Claims Flagged: 55
+
+Coverage Type Patterns:
+  - Coverage Types: 9
+

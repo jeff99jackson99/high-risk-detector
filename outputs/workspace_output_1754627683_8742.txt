@@ -1,0 +1,45 @@
+Testing Risk Detector with sample data...
+
+1. Testing data loading...
+Successfully loaded data with 79 records
+✓ Successfully loaded 79 records
+
+2. Testing multiple claims per VIN detection...
+Found 12 VINs with multiple claims
+✓ Found 12 VINs with multiple claims
+  Top VINs: W1K6G7GB8MA054187, WP0CB2A99LS264407, W1K6G6DB5NA065857
+
+3. Testing high dollar claim detection...
+Found 1 high dollar claims above $26698.35
+✓ Found 1 high dollar claims
+  Highest claim amount: $105946.06
+
+4. Testing multiple dealers per VIN detection...
+No VINs with multiple dealers found
+✗ No VINs with multiple dealers found or detection failed
+
+5. Testing repeated claims timeframe detection...
+Found 9 VINs with repeated claims within 30 days
+✓ Found 9 VINs with repeated claims within timeframe
+
+6. Testing high claims per dealer detection...
+Found 9 high-risk dealers
+✓ Found 9 high-risk dealers
+  Top dealer by claim count: AutoGiant USA
+
+7. Testing luxury vehicle pattern detection...
+Found 55 claims for luxury vehicles
+✓ Found 11 luxury brands with claims
+  Top luxury brand by total paid: MCLAREN
+
+8. Testing coverage type pattern detection...
+Analyzed 9 different coverage types
+✓ Found 9 coverage types
+  Top coverage type by total paid: Ascension Luxury - Premier
+
+9. Testing summary report generation...
+✓ Successfully generated summary report
+  Total claims analyzed: 79
+  Total amount paid: $211892.12
+
+All tests completed!

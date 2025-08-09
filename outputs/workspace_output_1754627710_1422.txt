@@ -1,0 +1,17 @@
+Starting High Risk Pattern Detection on file: Ascension Claims Inception 8.7.25.xlsx
+Starting risk pattern detection...
+Successfully loaded data with 79 records
+Found 12 VINs with multiple claims
+Found 1 high dollar claims above $26698.35
+No VINs with multiple dealers found
+Found 9 VINs with repeated claims within 30 days
+Found 9 high-risk dealers
+Found 55 claims for luxury vehicles
+Analyzed 9 different coverage types
+Risk detection complete. Results saved to risk_detection_results/
+Generating visualizations...
+Visualizations saved to risk_detection_results/visualizations/
+Generating HTML report...
+HTML report saved to risk_detection_results/risk_report.html
+To view the HTML report, open: risk_detection_results/risk_report.html
+Risk detection process complete!

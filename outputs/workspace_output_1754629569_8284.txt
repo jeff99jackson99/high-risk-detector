@@ -1,0 +1,22 @@
+[main (root-commit) 6a70347] Initial commit: High Risk Pattern Detection System
+ 20 files changed, 5047 insertions(+)
+ create mode 100644 .github/workflows/deploy.yml
+ create mode 100644 .gitignore
+ create mode 100644 Ascension Claims Inception 8.7.25.xlsx
+ create mode 100644 INSTALL.md
+ create mode 100644 README.md
+ create mode 100644 SYSTEM_OVERVIEW.md
+ create mode 100644 USAGE_GUIDE.md
+ create mode 100644 detect_high_risk.py
+ create mode 100644 package.json
+ create mode 100644 requirements.txt
+ create mode 100644 risk_detector.py
+ create mode 100755 run_risk_detection.py
+ create mode 100644 setup.py
+ create mode 100644 test_risk_detector.py
+ create mode 100644 todo.md
+ create mode 100644 web/README.md
+ create mode 100644 web/css/styles.css
+ create mode 100644 web/index.html
+ create mode 100644 web/js/app.js
+ create mode 100644 web/js/risk-detector.js

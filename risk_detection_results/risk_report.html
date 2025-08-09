@@ -1,0 +1,497 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>High Risk Pattern Detection Report</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                color: #333;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            h1, h2, h3 {
+                color: #2c3e50;
+            }
+            h1 {
+                border-bottom: 2px solid #3498db;
+                padding-bottom: 10px;
+            }
+            h2 {
+                border-bottom: 1px solid #bdc3c7;
+                padding-bottom: 5px;
+                margin-top: 30px;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 20px 0;
+            }
+            th, td {
+                text-align: left;
+                padding: 12px;
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            tr:hover {
+                background-color: #f5f5f5;
+            }
+            .summary-box {
+                background-color: #f8f9fa;
+                border-left: 4px solid #3498db;
+                padding: 15px;
+                margin: 20px 0;
+            }
+            .risk-section {
+                margin: 30px 0;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+            .risk-high {
+                border-left: 5px solid #e74c3c;
+            }
+            .risk-medium {
+                border-left: 5px solid #f39c12;
+            }
+            .risk-low {
+                border-left: 5px solid #2ecc71;
+            }
+            .visualization {
+                max-width: 100%;
+                height: auto;
+                margin: 20px 0;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>High Risk Pattern Detection Report</h1>
+            <p>Generated on: 2025-08-08 04:35:13</p>
+            
+            <div class="summary-box">
+                <h2>Summary Statistics</h2>
+                <p>Total Claims Analyzed: 79</p>
+                <p>Total Amount Paid: $211892.12</p>
+                <p>Average Claim Amount: $2682.18</p>
+                <p>Maximum Claim Amount: $105946.06</p>
+                <p>Unique VINs: 61</p>
+                <p>Unique Dealers: 25</p>
+            </div>
+    
+            <div class="risk-section risk-high">
+                <h2>Multiple Claims per VIN</h2>
+                <p>Found 12 VINs with multiple claims</p>
+                
+                <h3>Top VINs by Claim Count</h3>
+                <table>
+                    <tr>
+                        <th>VIN</th>
+                        <th>Claim Count</th>
+                        <th>Total Paid</th>
+                        <th>Vehicle</th>
+                    </tr>
+        
+                    <tr>
+                        <td>W1K6G7GB8MA054187</td>
+                        <td>5</td>
+                        <td>$2715.97</td>
+                        <td>2021 MERCEDES-BENZ S-Class S 580 4MATIC</td>
+                    </tr>
+            
+                    <tr>
+                        <td>W1K6G6DB5NA065857</td>
+                        <td>3</td>
+                        <td>$1146.84</td>
+                        <td>2022 MERCEDES-BENZ S-Class S 500 4MATIC</td>
+                    </tr>
+            
+                    <tr>
+                        <td>WP0CB2A99LS264407</td>
+                        <td>3</td>
+                        <td>$1789.13</td>
+                        <td>2020 PORSCHE 911 Carrera S</td>
+                    </tr>
+            
+                    <tr>
+                        <td>5LMJJ3LT0KEL01794</td>
+                        <td>2</td>
+                        <td>$1141.47</td>
+                        <td>2019 LINCOLN Navigator L Reserve</td>
+                    </tr>
+            
+                    <tr>
+                        <td>SCA682D56EUX75298</td>
+                        <td>2</td>
+                        <td>$13760.78</td>
+                        <td>2014 ROLLS-ROYCE Phantom Drophead Coupe Base</td>
+                    </tr>
+            
+                    <tr>
+                        <td>SBM14FCA6LW005065</td>
+                        <td>2</td>
+                        <td>$4749.20</td>
+                        <td>2020 MCLAREN 720S Spider Base</td>
+                    </tr>
+            
+                    <tr>
+                        <td>SALGW2RE3MA439628</td>
+                        <td>2</td>
+                        <td>$1305.42</td>
+                        <td>2021 LAND ROVER Range Rover SVAutobiography Dynamic</td>
+                    </tr>
+            
+                    <tr>
+                        <td>W1NKM4HB7PU017593</td>
+                        <td>2</td>
+                        <td>$1210.85</td>
+                        <td>2023 MERCEDES-BENZ GLC GLC 300 4MATIC</td>
+                    </tr>
+            
+                    <tr>
+                        <td>WBA5B3C53ED539783</td>
+                        <td>2</td>
+                        <td>$908.69</td>
+                        <td>2014 BMW 5 Series 535i xDrive</td>
+                    </tr>
+            
+                    <tr>
+                        <td>WBA73AK00N7K15320</td>
+                        <td>2</td>
+                        <td>$1605.15</td>
+                        <td>2022 BMW 2 Series 228i xDrive Gran Coupe</td>
+                    </tr>
+            
+                </table>
+                
+                <h3>Visualization</h3>
+                <img src="visualizations/multiple_claims_per_vin.png" alt="Multiple Claims per VIN" class="visualization">
+            </div>
+        
+            <div class="risk-section risk-high">
+                <h2>High Dollar Claims</h2>
+                <p>Found 1 high dollar claims</p>
+                
+                <h3>Top High Dollar Claims</h3>
+                <table>
+                    <tr>
+                        <th>Claim #</th>
+                        <th>Paid Amount</th>
+                        <th>VIN</th>
+                        <th>Vehicle</th>
+                        <th>Selling Dealer</th>
+                    </tr>
+        
+                    <tr>
+                        <td>nan</td>
+                        <td>$105946.06</td>
+                        <td>nan</td>
+                        <td>nan</td>
+                        <td>Unknown</td>
+                    </tr>
+            
+                </table>
+                
+                <h3>Visualization</h3>
+                <img src="visualizations/high_dollar_claims.png" alt="High Dollar Claims" class="visualization">
+            </div>
+        
+            <div class="risk-section risk-medium">
+                <h2>High Claims per Dealer</h2>
+                <p>Found 9 dealers with high claim frequency or amounts</p>
+                
+                <h3>Top Dealers by Total Paid Amount</h3>
+                <table>
+                    <tr>
+                        <th>Selling Dealer</th>
+                        <th>Claim Count</th>
+                        <th>Total Paid</th>
+                        <th>Average Paid</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Unknown</td>
+                        <td>0</td>
+                        <td>$105946.06</td>
+                        <td>$105946.06</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Eurolux LLC</td>
+                        <td>9</td>
+                        <td>$37879.42</td>
+                        <td>$4208.82</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Trust Eurocar LLC</td>
+                        <td>6</td>
+                        <td>$24042.98</td>
+                        <td>$4007.16</td>
+                    </tr>
+            
+                    <tr>
+                        <td>AutoGiant USA</td>
+                        <td>16</td>
+                        <td>$8833.11</td>
+                        <td>$552.07</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Bentley Indianapolis </td>
+                        <td>4</td>
+                        <td>$7471.99</td>
+                        <td>$1868.00</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Alderman Automotive</td>
+                        <td>9</td>
+                        <td>$4811.95</td>
+                        <td>$534.66</td>
+                    </tr>
+            
+                    <tr>
+                        <td>HyperCars</td>
+                        <td>4</td>
+                        <td>$4139.37</td>
+                        <td>$1034.84</td>
+                    </tr>
+            
+                    <tr>
+                        <td>DCG Dealer Services </td>
+                        <td>7</td>
+                        <td>$3486.69</td>
+                        <td>$498.10</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Autohouse (EL)</td>
+                        <td>5</td>
+                        <td>$1703.21</td>
+                        <td>$340.64</td>
+                    </tr>
+            
+                </table>
+                
+                <h3>Visualizations</h3>
+                <img src="visualizations/dealer_total_paid.png" alt="Dealers by Total Paid" class="visualization">
+                <img src="visualizations/dealer_claim_count.png" alt="Dealers by Claim Count" class="visualization">
+            </div>
+        
+            <div class="risk-section risk-medium">
+                <h2>Luxury Vehicle Patterns</h2>
+                <p>Found 11 luxury brands with claims</p>
+                
+                <h3>Luxury Brands by Total Paid Amount</h3>
+                <table>
+                    <tr>
+                        <th>Brand</th>
+                        <th>Claim Count</th>
+                        <th>Total Paid</th>
+                        <th>Average Paid</th>
+                        <th>Maximum Paid</th>
+                    </tr>
+        
+                    <tr>
+                        <td>MCLAREN</td>
+                        <td>5</td>
+                        <td>$31081.34</td>
+                        <td>$6216.27</td>
+                        <td>$11853.14</td>
+                    </tr>
+            
+                    <tr>
+                        <td>MERCEDES-BENZ</td>
+                        <td>20</td>
+                        <td>$14097.70</td>
+                        <td>$704.88</td>
+                        <td>$1784.13</td>
+                    </tr>
+            
+                    <tr>
+                        <td>ROLLS-ROYCE</td>
+                        <td>2</td>
+                        <td>$13760.78</td>
+                        <td>$6880.39</td>
+                        <td>$13630.78</td>
+                    </tr>
+            
+                    <tr>
+                        <td>LAMBORGHINI</td>
+                        <td>3</td>
+                        <td>$12405.64</td>
+                        <td>$4135.21</td>
+                        <td>$7505.81</td>
+                    </tr>
+            
+                    <tr>
+                        <td>BMW</td>
+                        <td>12</td>
+                        <td>$8458.20</td>
+                        <td>$704.85</td>
+                        <td>$1568.51</td>
+                    </tr>
+            
+                    <tr>
+                        <td>BENTLEY</td>
+                        <td>3</td>
+                        <td>$5649.51</td>
+                        <td>$1883.17</td>
+                        <td>$3017.76</td>
+                    </tr>
+            
+                    <tr>
+                        <td>PORSCHE</td>
+                        <td>5</td>
+                        <td>$4015.65</td>
+                        <td>$803.13</td>
+                        <td>$1822.48</td>
+                    </tr>
+            
+                    <tr>
+                        <td>MASERATI</td>
+                        <td>1</td>
+                        <td>$3861.46</td>
+                        <td>$3861.46</td>
+                        <td>$3861.46</td>
+                    </tr>
+            
+                    <tr>
+                        <td>FERRARI</td>
+                        <td>1</td>
+                        <td>$2130.30</td>
+                        <td>$2130.30</td>
+                        <td>$2130.30</td>
+                    </tr>
+            
+                    <tr>
+                        <td>TESLA</td>
+                        <td>2</td>
+                        <td>$317.79</td>
+                        <td>$158.90</td>
+                        <td>$257.79</td>
+                    </tr>
+            
+                    <tr>
+                        <td>AUDI</td>
+                        <td>1</td>
+                        <td>$243.91</td>
+                        <td>$243.91</td>
+                        <td>$243.91</td>
+                    </tr>
+            
+                </table>
+                
+                <h3>Visualizations</h3>
+                <img src="visualizations/luxury_brands_total_paid.png" alt="Luxury Brands by Total Paid" class="visualization">
+                <img src="visualizations/luxury_brands_avg_paid.png" alt="Luxury Brands by Average Paid" class="visualization">
+            </div>
+        
+            <div class="risk-section risk-low">
+                <h2>Coverage Type Patterns</h2>
+                <p>Analyzed 9 different coverage types</p>
+                
+                <h3>Coverage Types by Total Paid Amount</h3>
+                <table>
+                    <tr>
+                        <th>Coverage Type</th>
+                        <th>Claim Count</th>
+                        <th>Total Paid</th>
+                        <th>Average Paid</th>
+                        <th>Maximum Paid</th>
+                    </tr>
+        
+                    <tr>
+                        <td>Ascension Luxury - Premier</td>
+                        <td>19</td>
+                        <td>$72792.61</td>
+                        <td>$3831.19</td>
+                        <td>$13630.78</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Ascension - T&W, PDR, KEY Bundle</td>
+                        <td>17</td>
+                        <td>$9888.80</td>
+                        <td>$581.69</td>
+                        <td>$1822.48</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Ascension - Tire & Wheel</td>
+                        <td>11</td>
+                        <td>$6997.25</td>
+                        <td>$636.11</td>
+                        <td>$1573.81</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Ascent Protection Plus - Tire & Wheel</td>
+                        <td>12</td>
+                        <td>$5668.30</td>
+                        <td>$472.36</td>
+                        <td>$1305.15</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Ascent - Protection Plus T&W, PDR, KEY Bundle</td>
+                        <td>10</td>
+                        <td>$5240.30</td>
+                        <td>$524.03</td>
+                        <td>$1568.51</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Ascent Protection Plus Key/FOB</td>
+                        <td>6</td>
+                        <td>$2782.00</td>
+                        <td>$463.67</td>
+                        <td>$675.12</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Ascension Luxury - Executive</td>
+                        <td>1</td>
+                        <td>$1784.13</td>
+                        <td>$1784.13</td>
+                        <td>$1784.13</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Ascension Key/FOB</td>
+                        <td>1</td>
+                        <td>$732.67</td>
+                        <td>$732.67</td>
+                        <td>$732.67</td>
+                    </tr>
+            
+                    <tr>
+                        <td>Ascent Prepaid Maintenance Plan</td>
+                        <td>1</td>
+                        <td>$60.00</td>
+                        <td>$60.00</td>
+                        <td>$60.00</td>
+                    </tr>
+            
+                </table>
+                
+                <h3>Visualizations</h3>
+                <img src="visualizations/coverage_types_total_paid.png" alt="Coverage Types by Total Paid" class="visualization">
+                <img src="visualizations/coverage_types_claim_count.png" alt="Coverage Types by Claim Count" class="visualization">
+            </div>
+        
+        </div>
+    </body>
+    </html>
+    

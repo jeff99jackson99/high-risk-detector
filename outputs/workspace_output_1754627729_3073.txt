@@ -1,0 +1,11 @@
+total 444
+drwxr-xr-x 2 root root  4096 Aug  8 04:35 .
+drwxr-xr-x 3 root root  4096 Aug  8 04:35 ..
+-rw-r--r-- 1 root root 69310 Aug  8 04:35 coverage_types_claim_count.png
+-rw-r--r-- 1 root root 75064 Aug  8 04:35 coverage_types_total_paid.png
+-rw-r--r-- 1 root root 43982 Aug  8 04:35 dealer_claim_count.png
+-rw-r--r-- 1 root root 48993 Aug  8 04:35 dealer_total_paid.png
+-rw-r--r-- 1 root root 22923 Aug  8 04:35 high_dollar_claims.png
+-rw-r--r-- 1 root root 58433 Aug  8 04:35 luxury_brands_avg_paid.png
+-rw-r--r-- 1 root root 56130 Aug  8 04:35 luxury_brands_total_paid.png
+-rw-r--r-- 1 root root 61272 Aug  8 04:35 multiple_claims_per_vin.png

@@ -1,0 +1,10 @@
+Selling Dealer,claim_count,total_paid,avg_paid
+Alderman Automotive,9,4811.95,534.661111111111
+AutoGiant USA,16,8833.11,552.069375
+Autohouse (EL),5,1703.21,340.642
+Bentley Indianapolis ,4,7471.99,1867.9975
+DCG Dealer Services ,7,3486.69,498.09857142857146
+Eurolux LLC,9,37879.42,4208.824444444444
+HyperCars,4,4139.37,1034.8425
+Trust Eurocar LLC,6,24042.98,4007.1633333333334
+Unknown,0,105946.06,105946.06
