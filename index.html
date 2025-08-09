@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Risk Pattern Detection System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-shield-alt"></i> High Risk Pattern Detection</h1>
+            <p>Identify potential fraud patterns in claims data - by Jeff Jackson</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="upload-section" class="card">
+            <h2><i class="fas fa-upload"></i> Upload Claims Data</h2>
+            <p>Upload your Excel file containing claims data to analyze for high-risk patterns.</p>
+            
+            <div class="upload-container">
+                <div id="drop-area">
+                    <form class="upload-form">
+                        <input type="file" id="fileInput" accept=".xlsx, .xls" hidden />
+                        <label for="fileInput" class="file-label">
+                            <i class="fas fa-file-excel fa-3x"></i>
+                            <span>Choose a file or drag it here</span>
+                        </label>
+                        <div id="file-name"></div>
+                    </form>
+                </div>
+                <button id="analyze-btn" class="btn btn-primary" disabled>
+                    <i class="fas fa-search"></i> Analyze Data
+                </button>
+            </div>
+
+            <div class="settings-toggle">
+                <button id="settings-btn" class="btn btn-secondary">
+                    <i class="fas fa-cog"></i> Detection Settings
+                </button>
+            </div>
+
+            <div id="settings-panel" class="settings-panel hidden">
+                <h3>Risk Detection Settings</h3>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="vin-threshold">VIN Claims Threshold:</label>
+                        <input type="number" id="vin-threshold" min="2" value="2">
+                        <span class="setting-desc">Minimum claims per VIN to flag</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="dollar-threshold">High Dollar Threshold:</label>
+                        <input type="number" id="dollar-threshold" min="1" step="0.1" value="2.0">
+                        <span class="setting-desc">Standard deviations above mean</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="days-threshold">Days Threshold:</label>
+                        <input type="number" id="days-threshold" min="1" value="30">
+                        <span class="setting-desc">Max days between repeated claims</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="dealer-count">Dealer Count Threshold:</label>
+                        <input type="number" id="dealer-count" min="1" value="3">
+                        <span class="setting-desc">Min claims to flag a dealer</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="dealer-multiplier">Dealer Amount Multiplier:</label>
+                        <input type="number" id="dealer-multiplier" min="1" step="0.1" value="1.5">
+                        <span class="setting-desc">Multiplier of avg claim amount</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Analyzing data... Please wait.</p>
+        </div>
+
+        <section id="results-section" class="hidden">
+            <div class="card">
+                <h2><i class="fas fa-chart-pie"></i> Analysis Results</h2>
+                <div class="summary-stats">
+                    <div class="stat-card">
+                        <h3>Total Claims</h3>
+                        <div class="stat-value" id="total-claims">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Paid</h3>
+                        <div class="stat-value" id="total-paid">$0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Unique VINs</h3>
+                        <div class="stat-value" id="unique-vins">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>High Risk Patterns</h3>
+                        <div class="stat-value" id="risk-patterns">0</div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="summary">Summary</button>
+                    <button class="tab-btn" data-tab="vin-claims">Multiple Claims per VIN</button>
+                    <button class="tab-btn" data-tab="high-dollar">High Dollar Claims</button>
+                    <button class="tab-btn" data-tab="repeated-claims">Repeated Claims</button>
+                    <button class="tab-btn" data-tab="dealer-analysis">Dealer Analysis</button>
+                    <button class="tab-btn" data-tab="luxury-vehicles">Luxury Vehicles</button>
+                    <button class="tab-btn" data-tab="coverage-types">Coverage Types</button>
+                </div>
+
+                <div id="tab-content">
+                    <div class="tab-pane active" id="summary">
+                        <div class="summary-container">
+                            <div class="chart-container">
+                                <canvas id="summary-chart"></canvas>
+                            </div>
+                            <div class="summary-text">
+                                <h3>Risk Detection Summary</h3>
+                                <div id="summary-stats"></div>
+                                <div class="download-section">
+                                    <button id="download-report" class="btn btn-primary">
+                                        <i class="fas fa-download"></i> Download Full Report
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="vin-claims">
+                        <div class="chart-container">
+                            <canvas id="vin-claims-chart"></canvas>
+                        </div>
+                        <div class="table-container">
+                            <h3>VINs with Multiple Claims</h3>
+                            <div class="table-actions">
+                                <input type="text" id="vin-search" placeholder="Search..." class="search-input">
+                                <button id="download-vin-csv" class="btn btn-secondary">
+                                    <i class="fas fa-download"></i> Download CSV
+                                </button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table id="vin-claims-table">
+                                    <thead>
+                                        <tr>
+                                            <th>VIN</th>
+                                            <th>Vehicle</th>
+                                            <th>Claim Count</th>
+                                            <th>Total Paid</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="high-dollar">
+                        <div class="chart-container">
+                            <canvas id="high-dollar-chart"></canvas>
+                        </div>
+                        <div class="table-container">
+                            <h3>High Dollar Claims</h3>
+                            <div class="table-actions">
+                                <input type="text" id="high-dollar-search" placeholder="Search..." class="search-input">
+                                <button id="download-high-dollar-csv" class="btn btn-secondary">
+                                    <i class="fas fa-download"></i> Download CSV
+                                </button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table id="high-dollar-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Claim #</th>
+                                            <th>VIN</th>
+                                            <th>Vehicle</th>
+                                            <th>Paid Amount</th>
+                                            <th>Selling Dealer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="repeated-claims">
+                        <div class="chart-container">
+                            <canvas id="repeated-claims-chart"></canvas>
+                        </div>
+                        <div class="table-container">
+                            <h3>Repeated Claims Within Timeframe</h3>
+                            <div class="table-actions">
+                                <input type="text" id="repeated-claims-search" placeholder="Search..." class="search-input">
+                                <button id="download-repeated-csv" class="btn btn-secondary">
+                                    <i class="fas fa-download"></i> Download CSV
+                                </button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table id="repeated-claims-table">
+                                    <thead>
+                                        <tr>
+                                            <th>VIN</th>
+                                            <th>Vehicle</th>
+                                            <th>Claim Count</th>
+                                            <th>Min Days Between</th>
+                                            <th>Total Paid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="dealer-analysis">
+                        <div class="chart-container">
+                            <canvas id="dealer-chart"></canvas>
+                        </div>
+                        <div class="table-container">
+                            <h3>High Risk Dealers</h3>
+                            <div class="table-actions">
+                                <input type="text" id="dealer-search" placeholder="Search..." class="search-input">
+                                <button id="download-dealer-csv" class="btn btn-secondary">
+                                    <i class="fas fa-download"></i> Download CSV
+                                </button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table id="dealer-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Selling Dealer</th>
+                                            <th>Claim Count</th>
+                                            <th>Total Paid</th>
+                                            <th>Average Paid</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="luxury-vehicles">
+                        <div class="chart-container">
+                            <canvas id="luxury-chart"></canvas>
+                        </div>
+                        <div class="table-container">
+                            <h3>Luxury Vehicle Analysis</h3>
+                            <div class="table-actions">
+                                <input type="text" id="luxury-search" placeholder="Search..." class="search-input">
+                                <button id="download-luxury-csv" class="btn btn-secondary">
+                                    <i class="fas fa-download"></i> Download CSV
+                                </button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table id="luxury-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Brand</th>
+                                            <th>Claim Count</th>
+                                            <th>Total Paid</th>
+                                            <th>Average Paid</th>
+                                            <th>Maximum Paid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="coverage-types">
+                        <div class="chart-container">
+                            <canvas id="coverage-chart"></canvas>
+                        </div>
+                        <div class="table-container">
+                            <h3>Coverage Type Analysis</h3>
+                            <div class="table-actions">
+                                <input type="text" id="coverage-search" placeholder="Search..." class="search-input">
+                                <button id="download-coverage-csv" class="btn btn-secondary">
+                                    <i class="fas fa-download"></i> Download CSV
+                                </button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table id="coverage-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Coverage Type</th>
+                                            <th>Claim Count</th>
+                                            <th>Total Paid</th>
+                                            <th>Average Paid</th>
+                                            <th>Maximum Paid</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for claim details -->
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Claim Details</h2>
+            <div class="modal-body">
+                <div class="table-wrapper">
+                    <table id="details-table">
+                        <thead>
+                            <tr>
+                                <th>Claim #</th>
+                                <th>RO Date</th>
+                                <th>Coverage</th>
+                                <th>Paid Amount</th>
+                                <th>Default Servicer</th>
+                                <th>Selling Dealer</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jeff Jackson. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/risk-detector.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
